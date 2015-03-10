@@ -149,17 +149,6 @@ public class ImageDraw {
                 int rand = this.random.nextInt(3);
                 Drawable drawable = this.drawables.get(rand);
                 drawable.draw(coordinates, this);
-//                if(rand < 0.2) {
-//                    this.drawSquare(coordinates, this);
-//                } else if(rand < 0.4) {
-//                    this.drawUpperRightTriangle(coordinates, this);
-//                } else if(rand < 0.6) {
-//                    this.drawUpperLeftTriangle(coordinates, this);
-//                } else if(rand < 0.8) {
-//                    this.drawLowerRightTriangle(coordinates, this);
-//                } else {
-//                    this.drawLowerLeftTriangle(coordinates, this);
-//                }
             }
         }
         return this.image;
