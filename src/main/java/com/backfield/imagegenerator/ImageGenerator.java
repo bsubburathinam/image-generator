@@ -16,7 +16,7 @@ public class ImageGenerator {
         imageDraw.setSeed(str.hashCode());
         File file = new File("test.png");
         try {
-            ImageIO.write(imageDraw.draw(), "png", file);
+            ImageIO.write(imageDraw.draw(str.hashCode()), "png", file);
         } catch(Exception e) {
             throw new RuntimeException(e);
         }

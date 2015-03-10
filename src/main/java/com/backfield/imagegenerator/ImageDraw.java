@@ -14,13 +14,13 @@ public class ImageDraw {
 
     private Random random = new Random();
 
-    private final int baseColor = 0x313A75;
+    private static final int baseColor = 0x313A75;
 
-    private final int[] baseColorPalette = {0x182157, 0x080F3A, 0x525B92, 0x7C93AF};
+    private static final int[] baseColorPalette = {0x182157, 0x080F3A, 0x525B92, 0x7C93AF};
 
-    private final int compliment = 0xAA8A39;
+    private static final int compliment = 0xAA8A39;
 
-    private final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
+    private static final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
 
     private List<Drawable> drawables = Arrays.asList(
             new Drawable() { // lower left
@@ -96,8 +96,8 @@ public class ImageDraw {
         this.image = image;
     }
 
-    public int nextColor() {
-        float rand = this.random.nextFloat();
+    public static int nextColor(Random random) {
+        float rand = random.nextFloat();
         int base;
         int[] palette;
         if(rand < 0.1) {
@@ -114,12 +114,14 @@ public class ImageDraw {
         }
     }
 
-    public BufferedImage draw() {
+    public BufferedImage draw(long hash) {
         int x;
         int y;
+        Random random = new Random();
+        random.setSeed(hash);
         for(x = 0; x < this.numberOfSquares; x++) {
             for(y = 0; y < this.numberOfSquares; y++) {
-                int color = nextColor();
+                int color = nextColor(random);
                 DrawAttributes coordinates = new DrawAttributes(x, y, color);
                 int rand = this.random.nextInt(3);
                 Drawable drawable = this.drawables.get(rand);
