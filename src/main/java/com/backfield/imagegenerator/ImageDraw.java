@@ -7,10 +7,8 @@ import java.util.Random;
 
 public class ImageDraw {
 
-    private BufferedImage image;
-
-    private int squareSize;
-    private int numberOfSquares;
+    private static int squareSize = 20;
+    private static int numberOfSquares = 10;
 
     private static final int baseColor = 0x313A75;
 
@@ -23,22 +21,22 @@ public class ImageDraw {
     private List<Drawable> drawables = Arrays.asList(
             new Drawable() { // lower left
                 @Override
-                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                public void draw(DrawAttributes coordinates, BufferedImage image) {
                     int color = coordinates.getColor();
-                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
-                        for (int squareY = squareX; squareY < imageDraw.getSquareSize(); squareY++) {
-                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                    for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
+                        for (int squareY = squareX; squareY < ImageDraw.squareSize; squareY++) {
+                            image.setRGB(coordinates.getX() * ImageDraw.squareSize + squareX, coordinates.getY() * ImageDraw.squareSize + squareY, color);
                         }
                     }
                 }
             },
             new Drawable() { // lower right
                 @Override
-                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                public void draw(DrawAttributes coordinates, BufferedImage image) {
                     int color = coordinates.getColor();
-                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
-                        for (int squareY = (imageDraw.getSquareSize() - squareX); squareY < imageDraw.getSquareSize(); squareY++) {
-                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                    for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
+                        for (int squareY = (ImageDraw.squareSize - squareX); squareY < ImageDraw.squareSize; squareY++) {
+                            image.setRGB(coordinates.getX() * ImageDraw.squareSize + squareX, coordinates.getY() * ImageDraw.squareSize + squareY, color);
                         }
                     }
 
@@ -46,22 +44,22 @@ public class ImageDraw {
             },
             new Drawable() { // upper left
                 @Override
-                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                public void draw(DrawAttributes coordinates, BufferedImage image) {
                     int color = coordinates.getColor();
-                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
-                        for (int squareY = 0; squareY < imageDraw.getSquareSize(); squareY++) {
-                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                    for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
+                        for (int squareY = 0; squareY < ImageDraw.squareSize; squareY++) {
+                            image.setRGB(coordinates.getX() * ImageDraw.squareSize + squareX, coordinates.getY() * ImageDraw.squareSize + squareY, color);
                         }
                     }
                 }
             },
             new Drawable() { // upper right
                 @Override
-                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                public void draw(DrawAttributes coordinates, BufferedImage image) {
                     int color = coordinates.getColor();
-                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
+                    for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
                         for (int squareY = 0; squareY < squareX; squareY++) {
-                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                            image.setRGB(coordinates.getX() * ImageDraw.squareSize + squareX, coordinates.getY() * ImageDraw.squareSize + squareY, color);
                         }
                     }
                 }
@@ -71,7 +69,7 @@ public class ImageDraw {
     public ImageDraw(int squareSize, int numberOfSquares) {
         this.squareSize = squareSize;
         this.numberOfSquares = numberOfSquares;
-        this.image = new BufferedImage(this.squareSize * this.numberOfSquares, this.squareSize * this.numberOfSquares, BufferedImage.TYPE_INT_RGB);
+
     }
 
     public int getSquareSize() {
@@ -80,14 +78,6 @@ public class ImageDraw {
 
     public void setSquareSize(int squareSize) {
         this.squareSize = squareSize;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
     }
 
     public static int nextColor(Random random) {
@@ -113,16 +103,22 @@ public class ImageDraw {
         int y;
         Random random = new Random();
         random.setSeed(hash);
+        BufferedImage image =
+            new BufferedImage(
+                ImageDraw.squareSize * ImageDraw.numberOfSquares,
+                ImageDraw.squareSize * ImageDraw.numberOfSquares, 
+                BufferedImage.TYPE_INT_RGB
+            );
         for(x = 0; x < this.numberOfSquares; x++) {
             for(y = 0; y < this.numberOfSquares; y++) {
                 int color = nextColor(random);
                 DrawAttributes coordinates = new DrawAttributes(x, y, color);
                 int rand = random.nextInt(3);
                 Drawable drawable = this.drawables.get(rand);
-                drawable.draw(coordinates, this);
+                drawable.draw(coordinates, image);
             }
         }
-        return this.image;
+        return image;
     }
 
 }
