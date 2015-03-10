@@ -12,8 +12,6 @@ public class ImageDraw {
     private int squareSize;
     private int numberOfSquares;
 
-    private Random random = new Random();
-
     private static final int baseColor = 0x313A75;
 
     private static final int[] baseColorPalette = {0x182157, 0x080F3A, 0x525B92, 0x7C93AF};
@@ -76,10 +74,6 @@ public class ImageDraw {
         this.image = new BufferedImage(this.squareSize * this.numberOfSquares, this.squareSize * this.numberOfSquares, BufferedImage.TYPE_INT_RGB);
     }
 
-    public void setSeed(int hash) {
-        this.random.setSeed(hash);
-    }
-
     public int getSquareSize() {
         return squareSize;
     }
@@ -123,7 +117,7 @@ public class ImageDraw {
             for(y = 0; y < this.numberOfSquares; y++) {
                 int color = nextColor(random);
                 DrawAttributes coordinates = new DrawAttributes(x, y, color);
-                int rand = this.random.nextInt(3);
+                int rand = random.nextInt(3);
                 Drawable drawable = this.drawables.get(rand);
                 drawable.draw(coordinates, this);
             }

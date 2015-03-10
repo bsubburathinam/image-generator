@@ -13,7 +13,6 @@ public class ImageGenerator {
     ImageDraw imageDraw;
 
     public void generateImageForString(String str) {
-        imageDraw.setSeed(str.hashCode());
         File file = new File("test.png");
         try {
             ImageIO.write(imageDraw.draw(str.hashCode()), "png", file);
