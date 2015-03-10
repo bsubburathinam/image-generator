@@ -17,10 +17,14 @@
     </bean>
 
     <bean id="imageDraw" factory-bean="imageDrawFactory" factory-method="create" >
-        <property name="lowerLeftDrawable" ref="lowerLeftDrawable"/>
-        <property name="lowerRightDrawable" ref="lowerRightDrawable"/>
-        <property name="upperLeftDrawable" ref="upperLeftDrawable"/>
-        <property name="upperRightDrawable" ref="upperRightDrawable"/>
+        <property name="drawables">
+            <list>
+                <ref bean="lowerLeftDrawable"/>
+                <ref bean="lowerRightDrawable"/>
+                <ref bean="upperLeftDrawable"/>
+                <ref bean="upperRightDrawable"/>
+            </list>
+        </property>
     </bean>
 
     <bean id="lowerLeftDrawable" class="com.backfield.imagegenerator.LowerLeftDrawable">

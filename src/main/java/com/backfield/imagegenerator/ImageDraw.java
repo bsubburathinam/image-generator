@@ -1,6 +1,7 @@
 package com.backfield.imagegenerator;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Random;
 
 public class ImageDraw {
@@ -20,6 +21,8 @@ public class ImageDraw {
 
     private final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
 
+    private List<Drawable> drawables;
+
     private Drawable lowerLeftDrawable;
 
     private Drawable lowerRightDrawable;
@@ -27,6 +30,14 @@ public class ImageDraw {
     private Drawable upperLeftDrawable;
 
     private Drawable upperRightDrawable;
+
+    public List<Drawable> getDrawables() {
+        return drawables;
+    }
+
+    public void setDrawables(List<Drawable> drawables) {
+        this.drawables = drawables;
+    }
 
     public Drawable getLowerLeftDrawable() {
         return lowerLeftDrawable;
@@ -135,18 +146,20 @@ public class ImageDraw {
         for(x = 0; x < this.numberOfSquares; x++) {
             for(y = 0; y < this.numberOfSquares; y++) {
                 DrawAttributes coordinates = new DrawAttributes(x, y);
-                float rand = this.random.nextFloat();
-                if(rand < 0.2) {
-                    this.drawSquare(coordinates, this);
-                } else if(rand < 0.4) {
-                    this.drawUpperRightTriangle(coordinates, this);
-                } else if(rand < 0.6) {
-                    this.drawUpperLeftTriangle(coordinates, this);
-                } else if(rand < 0.8) {
-                    this.drawLowerRightTriangle(coordinates, this);
-                } else {
-                    this.drawLowerLeftTriangle(coordinates, this);
-                }
+                int rand = this.random.nextInt(3);
+                Drawable drawable = this.drawables.get(rand);
+                drawable.draw(coordinates, this);
+//                if(rand < 0.2) {
+//                    this.drawSquare(coordinates, this);
+//                } else if(rand < 0.4) {
+//                    this.drawUpperRightTriangle(coordinates, this);
+//                } else if(rand < 0.6) {
+//                    this.drawUpperLeftTriangle(coordinates, this);
+//                } else if(rand < 0.8) {
+//                    this.drawLowerRightTriangle(coordinates, this);
+//                } else {
+//                    this.drawLowerLeftTriangle(coordinates, this);
+//                }
             }
         }
         return this.image;
