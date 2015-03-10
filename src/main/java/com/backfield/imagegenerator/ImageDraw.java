@@ -20,6 +20,46 @@ public class ImageDraw {
 
     private final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
 
+    private Drawable lowerLeftDrawable;
+
+    private Drawable lowerRightDrawable;
+
+    private Drawable upperLeftDrawable;
+
+    private Drawable upperRightDrawable;
+
+    public Drawable getLowerLeftDrawable() {
+        return lowerLeftDrawable;
+    }
+
+    public void setLowerLeftDrawable(Drawable lowerLeftDrawable) {
+        this.lowerLeftDrawable = lowerLeftDrawable;
+    }
+
+    public Drawable getLowerRightDrawable() {
+        return lowerRightDrawable;
+    }
+
+    public void setLowerRightDrawable(Drawable lowerRightDrawable) {
+        this.lowerRightDrawable = lowerRightDrawable;
+    }
+
+    public Drawable getUpperLeftDrawable() {
+        return upperLeftDrawable;
+    }
+
+    public void setUpperLeftDrawable(Drawable upperLeftDrawable) {
+        this.upperLeftDrawable = upperLeftDrawable;
+    }
+
+    public Drawable getUpperRightDrawable() {
+        return upperRightDrawable;
+    }
+
+    public void setUpperRightDrawable(Drawable upperRightDrawable) {
+        this.upperRightDrawable = upperRightDrawable;
+    }
+
     public ImageDraw(int squareSize, int numberOfSquares) {
         this.squareSize = squareSize;
         this.numberOfSquares = numberOfSquares;
@@ -30,40 +70,36 @@ public class ImageDraw {
         this.random.setSeed(hash);
     }
 
+    public int getSquareSize() {
+        return squareSize;
+    }
+
+    public void setSquareSize(int squareSize) {
+        this.squareSize = squareSize;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+
     private void drawLowerLeftTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        int color = imageDraw.nextColor();
-        for (int squareX = 0; squareX < imageDraw.squareSize; squareX++) {
-            for (int squareY = squareX; squareY < imageDraw.squareSize; squareY++) {
-                this.image.setRGB(coordinates.getX() * imageDraw.squareSize + squareX, coordinates.getY() * imageDraw.squareSize + squareY, color);
-            }
-        }
+        this.lowerLeftDrawable.draw(coordinates, imageDraw);
     }
 
     private void drawLowerRightTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        int color = imageDraw.nextColor();
-        for (int squareX = 0; squareX < imageDraw.squareSize; squareX++) {
-            for (int squareY = (imageDraw.squareSize - squareX); squareY < imageDraw.squareSize; squareY++) {
-                this.image.setRGB(coordinates.getX() * imageDraw.squareSize + squareX, coordinates.getY() * imageDraw.squareSize + squareY, color);
-            }
-        }
+        this.lowerRightDrawable.draw(coordinates, imageDraw);
     }
 
     private void drawUpperLeftTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        int color = imageDraw.nextColor();
-        for (int squareX = 0; squareX < imageDraw.squareSize; squareX++) {
-            for (int squareY = 0; squareY < imageDraw.squareSize; squareY++) {
-                this.image.setRGB(coordinates.getX() * imageDraw.squareSize + squareX, coordinates.getY() * imageDraw.squareSize + squareY, color);
-            }
-        }
+        this.upperLeftDrawable.draw(coordinates, imageDraw);
     }
 
     private void drawUpperRightTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        int color = imageDraw.nextColor();
-        for (int squareX = 0; squareX < imageDraw.squareSize; squareX++) {
-            for (int squareY = 0; squareY < squareX; squareY++) {
-                this.image.setRGB(coordinates.getX() * imageDraw.squareSize + squareX, coordinates.getY() * imageDraw.squareSize + squareY, color);
-            }
-        }
+        this.upperRightDrawable.draw(coordinates, imageDraw);
     }
 
     private void drawSquare(DrawAttributes coordinates, ImageDraw imageDraw) {
@@ -75,7 +111,7 @@ public class ImageDraw {
         }
     }
 
-    private int nextColor() {
+    public int nextColor() {
         float rand = this.random.nextFloat();
         int base;
         int[] palette;

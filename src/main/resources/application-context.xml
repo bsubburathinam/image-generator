@@ -16,6 +16,18 @@
         <constructor-arg name="numberOfSquares" value="10" />
     </bean>
 
-    <bean id="imageDraw" factory-bean="imageDrawFactory" factory-method="create" />
+    <bean id="imageDraw" factory-bean="imageDrawFactory" factory-method="create" >
+        <property name="lowerLeftDrawable" ref="lowerLeftDrawable"/>
+        <property name="lowerRightDrawable" ref="lowerRightDrawable"/>
+        <property name="upperLeftDrawable" ref="upperLeftDrawable"/>
+        <property name="upperRightDrawable" ref="upperRightDrawable"/>
+    </bean>
+
+    <bean id="lowerLeftDrawable" class="com.backfield.imagegenerator.LowerLeftDrawable">
+    </bean>
+    <bean id="lowerRightDrawable" class="com.backfield.imagegenerator.LowerRightDrawable">
+    </bean>
+    <bean id="upperLeftDrawable" class="com.backfield.imagegenerator.UpperLeftDrawable"/>
+    <bean id="upperRightDrawable" class="com.backfield.imagegenerator.UpperRightDrawable"/>
 
 </beans>
