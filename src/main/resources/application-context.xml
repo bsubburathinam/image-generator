@@ -17,21 +17,7 @@
     </bean>
 
     <bean id="imageDraw" factory-bean="imageDrawFactory" factory-method="create" >
-        <property name="drawables">
-            <list>
-                <ref bean="lowerLeftDrawable"/>
-                <ref bean="lowerRightDrawable"/>
-                <ref bean="upperLeftDrawable"/>
-                <ref bean="upperRightDrawable"/>
-            </list>
-        </property>
     </bean>
 
-    <bean id="lowerLeftDrawable" class="com.backfield.imagegenerator.LowerLeftDrawable">
-    </bean>
-    <bean id="lowerRightDrawable" class="com.backfield.imagegenerator.LowerRightDrawable">
-    </bean>
-    <bean id="upperLeftDrawable" class="com.backfield.imagegenerator.UpperLeftDrawable"/>
-    <bean id="upperRightDrawable" class="com.backfield.imagegenerator.UpperRightDrawable"/>
 
 </beans>

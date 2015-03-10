@@ -1,6 +1,7 @@
 package com.backfield.imagegenerator;
 
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -21,55 +22,12 @@ public class ImageDraw {
 
     private final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
 
-    private List<Drawable> drawables;
-
-    private Drawable lowerLeftDrawable;
-
-    private Drawable lowerRightDrawable;
-
-    private Drawable upperLeftDrawable;
-
-    private Drawable upperRightDrawable;
-
-    public List<Drawable> getDrawables() {
-        return drawables;
-    }
-
-    public void setDrawables(List<Drawable> drawables) {
-        this.drawables = drawables;
-    }
-
-    public Drawable getLowerLeftDrawable() {
-        return lowerLeftDrawable;
-    }
-
-    public void setLowerLeftDrawable(Drawable lowerLeftDrawable) {
-        this.lowerLeftDrawable = lowerLeftDrawable;
-    }
-
-    public Drawable getLowerRightDrawable() {
-        return lowerRightDrawable;
-    }
-
-    public void setLowerRightDrawable(Drawable lowerRightDrawable) {
-        this.lowerRightDrawable = lowerRightDrawable;
-    }
-
-    public Drawable getUpperLeftDrawable() {
-        return upperLeftDrawable;
-    }
-
-    public void setUpperLeftDrawable(Drawable upperLeftDrawable) {
-        this.upperLeftDrawable = upperLeftDrawable;
-    }
-
-    public Drawable getUpperRightDrawable() {
-        return upperRightDrawable;
-    }
-
-    public void setUpperRightDrawable(Drawable upperRightDrawable) {
-        this.upperRightDrawable = upperRightDrawable;
-    }
+    private List<Drawable> drawables = Arrays.asList(
+        new LowerLeftDrawable(),
+        new LowerRightDrawable(),
+        new UpperLeftDrawable(),
+        new UpperRightDrawable()
+    );
 
     public ImageDraw(int squareSize, int numberOfSquares) {
         this.squareSize = squareSize;
@@ -95,31 +53,6 @@ public class ImageDraw {
 
     public void setImage(BufferedImage image) {
         this.image = image;
-    }
-
-    private void drawLowerLeftTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        this.lowerLeftDrawable.draw(coordinates, imageDraw);
-    }
-
-    private void drawLowerRightTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        this.lowerRightDrawable.draw(coordinates, imageDraw);
-    }
-
-    private void drawUpperLeftTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        this.upperLeftDrawable.draw(coordinates, imageDraw);
-    }
-
-    private void drawUpperRightTriangle(DrawAttributes coordinates, ImageDraw imageDraw) {
-        this.upperRightDrawable.draw(coordinates, imageDraw);
-    }
-
-    private void drawSquare(DrawAttributes coordinates, ImageDraw imageDraw) {
-        int color = imageDraw.nextColor();
-        for(int squareX = 0; squareX < imageDraw.squareSize; squareX++) {
-            for(int squareY = 0; squareY < imageDraw.squareSize; squareY++) {
-                this.image.setRGB(coordinates.getX() * imageDraw.squareSize + squareX, coordinates.getY() * imageDraw.squareSize + squareY, color);
-            }
-        }
     }
 
     public int nextColor() {
