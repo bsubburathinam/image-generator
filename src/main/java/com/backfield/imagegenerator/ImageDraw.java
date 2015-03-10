@@ -23,10 +23,51 @@ public class ImageDraw {
     private final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
 
     private List<Drawable> drawables = Arrays.asList(
-        new LowerLeftDrawable(),
-        new LowerRightDrawable(),
-        new UpperLeftDrawable(),
-        new UpperRightDrawable()
+            new Drawable() { // lower left
+                @Override
+                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                    int color = imageDraw.nextColor();
+                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
+                        for (int squareY = squareX; squareY < imageDraw.getSquareSize(); squareY++) {
+                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                        }
+                    }
+                }
+            },
+            new Drawable() { // lower right
+                @Override
+                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                    int color = imageDraw.nextColor();
+                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
+                        for (int squareY = (imageDraw.getSquareSize() - squareX); squareY < imageDraw.getSquareSize(); squareY++) {
+                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                        }
+                    }
+
+                }
+            },
+            new Drawable() { // upper left
+                @Override
+                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                    int color = imageDraw.nextColor();
+                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
+                        for (int squareY = 0; squareY < imageDraw.getSquareSize(); squareY++) {
+                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                        }
+                    }
+                }
+            },
+            new Drawable() { // upper right
+                @Override
+                public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
+                    int color = imageDraw.nextColor();
+                    for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
+                        for (int squareY = 0; squareY < squareX; squareY++) {
+                            imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
+                        }
+                    }
+                }
+            }
     );
 
     public ImageDraw(int squareSize, int numberOfSquares) {
