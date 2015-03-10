@@ -18,7 +18,7 @@ public class ImageDraw {
 
     private static final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
 
-    private List<Drawable> drawables = Arrays.asList(
+    private static List<Drawable> drawables = Arrays.asList(
             new Drawable() { // lower left
                 @Override
                 public void draw(DrawAttributes coordinates, BufferedImage image) {
@@ -72,14 +72,6 @@ public class ImageDraw {
 
     }
 
-    public int getSquareSize() {
-        return squareSize;
-    }
-
-    public void setSquareSize(int squareSize) {
-        this.squareSize = squareSize;
-    }
-
     public static int nextColor(Random random) {
         float rand = random.nextFloat();
         int base;
@@ -114,7 +106,7 @@ public class ImageDraw {
                 int color = nextColor(random);
                 DrawAttributes coordinates = new DrawAttributes(x, y, color);
                 int rand = random.nextInt(3);
-                Drawable drawable = this.drawables.get(rand);
+                Drawable drawable = ImageDraw.drawables.get(rand);
                 drawable.draw(coordinates, image);
             }
         }
