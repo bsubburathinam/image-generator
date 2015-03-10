@@ -10,9 +10,6 @@ public class ImageDraw {
     private int squareSize;
     private int numberOfSquares;
 
-    private int x = 0;
-    private int y = 0;
-
     private Random random = new Random();
 
     private final int baseColor = 0x313A75;
@@ -33,47 +30,47 @@ public class ImageDraw {
         this.random.setSeed(hash);
     }
 
-    private void drawLowerLeftTriangle() {
+    private void drawLowerLeftTriangle(DrawCoordinates coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = squareX; squareY < this.squareSize; squareY++) {
-                this.image.setRGB(this.x * this.squareSize + squareX, this.y * this.squareSize + squareY, color);
+                this.image.setRGB(coordinates.getX() * this.squareSize + squareX, coordinates.getY() * this.squareSize + squareY, color);
             }
         }
     }
 
-    private void drawLowerRightTriangle() {
+    private void drawLowerRightTriangle(DrawCoordinates coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = (this.squareSize - squareX); squareY < this.squareSize; squareY++) {
-                this.image.setRGB(this.x * this.squareSize + squareX, this.y * this.squareSize + squareY, color);
+                this.image.setRGB(coordinates.getX() * this.squareSize + squareX, coordinates.getY() * this.squareSize + squareY, color);
             }
         }
     }
 
-    private void drawUpperLeftTriangle() {
+    private void drawUpperLeftTriangle(DrawCoordinates coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = 0; squareY < this.squareSize; squareY++) {
-                this.image.setRGB(this.x * this.squareSize + squareX, this.y * this.squareSize + squareY, color);
+                this.image.setRGB(coordinates.getX() * this.squareSize + squareX, coordinates.getY() * this.squareSize + squareY, color);
             }
         }
     }
 
-    private void drawUpperRightTriangle() {
+    private void drawUpperRightTriangle(DrawCoordinates coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = 0; squareY < squareX; squareY++) {
-                this.image.setRGB(this.x * this.squareSize + squareX, this.y * this.squareSize + squareY, color);
+                this.image.setRGB(coordinates.getX() * this.squareSize + squareX, coordinates.getY() * this.squareSize + squareY, color);
             }
         }
     }
 
-    private void drawSquare() {
+    private void drawSquare(DrawCoordinates coordinates) {
         int color = this.nextColor();
         for(int squareX = 0; squareX < this.squareSize; squareX++) {
             for(int squareY = 0; squareY < this.squareSize; squareY++) {
-                this.image.setRGB(this.x * this.squareSize + squareX, this.y * this.squareSize + squareY, color);
+                this.image.setRGB(coordinates.getX() * this.squareSize + squareX, coordinates.getY() * this.squareSize + squareY, color);
             }
         }
     }
@@ -97,19 +94,22 @@ public class ImageDraw {
     }
 
     public BufferedImage draw() {
-        for(this.x = 0; this.x < this.numberOfSquares; this.x++) {
-            for(this.y = 0; this.y < this.numberOfSquares; this.y++) {
+        int x;
+        int y;
+        for(x = 0; x < this.numberOfSquares; x++) {
+            for(y = 0; y < this.numberOfSquares; y++) {
+                DrawCoordinates coordinates = new DrawCoordinates(x, y);
                 float rand = this.random.nextFloat();
                 if(rand < 0.2) {
-                    this.drawSquare();
+                    this.drawSquare(coordinates);
                 } else if(rand < 0.4) {
-                    this.drawUpperRightTriangle();
+                    this.drawUpperRightTriangle(coordinates);
                 } else if(rand < 0.6) {
-                    this.drawUpperLeftTriangle();
+                    this.drawUpperLeftTriangle(coordinates);
                 } else if(rand < 0.8) {
-                    this.drawLowerRightTriangle();
+                    this.drawLowerRightTriangle(coordinates);
                 } else {
-                    this.drawLowerLeftTriangle();
+                    this.drawLowerLeftTriangle(coordinates);
                 }
             }
         }
