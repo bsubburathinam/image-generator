@@ -26,7 +26,7 @@ public class ImageDraw {
             new Drawable() { // lower left
                 @Override
                 public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
-                    int color = imageDraw.nextColor();
+                    int color = coordinates.getColor();
                     for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
                         for (int squareY = squareX; squareY < imageDraw.getSquareSize(); squareY++) {
                             imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
@@ -37,7 +37,7 @@ public class ImageDraw {
             new Drawable() { // lower right
                 @Override
                 public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
-                    int color = imageDraw.nextColor();
+                    int color = coordinates.getColor();
                     for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
                         for (int squareY = (imageDraw.getSquareSize() - squareX); squareY < imageDraw.getSquareSize(); squareY++) {
                             imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
@@ -49,7 +49,7 @@ public class ImageDraw {
             new Drawable() { // upper left
                 @Override
                 public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
-                    int color = imageDraw.nextColor();
+                    int color = coordinates.getColor();
                     for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
                         for (int squareY = 0; squareY < imageDraw.getSquareSize(); squareY++) {
                             imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
@@ -60,7 +60,7 @@ public class ImageDraw {
             new Drawable() { // upper right
                 @Override
                 public void draw(DrawAttributes coordinates, ImageDraw imageDraw) {
-                    int color = imageDraw.nextColor();
+                    int color = coordinates.getColor();
                     for (int squareX = 0; squareX < imageDraw.getSquareSize(); squareX++) {
                         for (int squareY = 0; squareY < squareX; squareY++) {
                             imageDraw.getImage().setRGB(coordinates.getX() * imageDraw.getSquareSize() + squareX, coordinates.getY() * imageDraw.getSquareSize() + squareY, color);
@@ -119,7 +119,8 @@ public class ImageDraw {
         int y;
         for(x = 0; x < this.numberOfSquares; x++) {
             for(y = 0; y < this.numberOfSquares; y++) {
-                DrawAttributes coordinates = new DrawAttributes(x, y);
+                int color = nextColor();
+                DrawAttributes coordinates = new DrawAttributes(x, y, color);
                 int rand = this.random.nextInt(3);
                 Drawable drawable = this.drawables.get(rand);
                 drawable.draw(coordinates, this);
