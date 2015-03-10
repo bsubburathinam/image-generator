@@ -30,7 +30,7 @@ public class ImageDraw {
         this.random.setSeed(hash);
     }
 
-    private void drawLowerLeftTriangle(DrawCoordinates coordinates) {
+    private void drawLowerLeftTriangle(DrawAttributes coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = squareX; squareY < this.squareSize; squareY++) {
@@ -39,7 +39,7 @@ public class ImageDraw {
         }
     }
 
-    private void drawLowerRightTriangle(DrawCoordinates coordinates) {
+    private void drawLowerRightTriangle(DrawAttributes coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = (this.squareSize - squareX); squareY < this.squareSize; squareY++) {
@@ -48,7 +48,7 @@ public class ImageDraw {
         }
     }
 
-    private void drawUpperLeftTriangle(DrawCoordinates coordinates) {
+    private void drawUpperLeftTriangle(DrawAttributes coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = 0; squareY < this.squareSize; squareY++) {
@@ -57,7 +57,7 @@ public class ImageDraw {
         }
     }
 
-    private void drawUpperRightTriangle(DrawCoordinates coordinates) {
+    private void drawUpperRightTriangle(DrawAttributes coordinates) {
         int color = this.nextColor();
         for (int squareX = 0; squareX < this.squareSize; squareX++) {
             for (int squareY = 0; squareY < squareX; squareY++) {
@@ -66,7 +66,7 @@ public class ImageDraw {
         }
     }
 
-    private void drawSquare(DrawCoordinates coordinates) {
+    private void drawSquare(DrawAttributes coordinates) {
         int color = this.nextColor();
         for(int squareX = 0; squareX < this.squareSize; squareX++) {
             for(int squareY = 0; squareY < this.squareSize; squareY++) {
@@ -98,7 +98,7 @@ public class ImageDraw {
         int y;
         for(x = 0; x < this.numberOfSquares; x++) {
             for(y = 0; y < this.numberOfSquares; y++) {
-                DrawCoordinates coordinates = new DrawCoordinates(x, y);
+                DrawAttributes coordinates = new DrawAttributes(x, y);
                 float rand = this.random.nextFloat();
                 if(rand < 0.2) {
                     this.drawSquare(coordinates);

@@ -1,11 +1,11 @@
 package com.backfield.imagegenerator;
 
-public class DrawCoordinates
+public class DrawAttributes
 {
     private int x = 0;
     private int y = 0;
 
-    public DrawCoordinates(
+    public DrawAttributes(
         int xValue,
         int yValue
     )
