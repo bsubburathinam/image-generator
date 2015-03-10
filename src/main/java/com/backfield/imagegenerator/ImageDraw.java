@@ -19,9 +19,7 @@ public class ImageDraw {
     private static final int[] complimentPalette = {0xFFE7AA, 0xD4B66A, 0x806115, 0x553D00};
 
     private static List<Drawable> drawables = Arrays.asList(
-            new Drawable() { // lower left
-                @Override
-                public void draw(DrawAttributes coordinates, BufferedImage image) {
+            (coordinates, image) -> {
                     int color = coordinates.getColor();
                     for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
                         for (int squareY = squareX; squareY < ImageDraw.squareSize; squareY++) {
@@ -29,40 +27,30 @@ public class ImageDraw {
                         }
                     }
                 }
-            },
-            new Drawable() { // lower right
-                @Override
-                public void draw(DrawAttributes coordinates, BufferedImage image) {
+            ,
+            (coordinates, image) -> {
                     int color = coordinates.getColor();
                     for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
                         for (int squareY = (ImageDraw.squareSize - squareX); squareY < ImageDraw.squareSize; squareY++) {
                             image.setRGB(coordinates.getX() * ImageDraw.squareSize + squareX, coordinates.getY() * ImageDraw.squareSize + squareY, color);
                         }
                     }
-
-                }
             },
-            new Drawable() { // upper left
-                @Override
-                public void draw(DrawAttributes coordinates, BufferedImage image) {
+            (coordinates, image) -> {
                     int color = coordinates.getColor();
                     for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
                         for (int squareY = 0; squareY < ImageDraw.squareSize; squareY++) {
                             image.setRGB(coordinates.getX() * ImageDraw.squareSize + squareX, coordinates.getY() * ImageDraw.squareSize + squareY, color);
                         }
                     }
-                }
             },
-            new Drawable() { // upper right
-                @Override
-                public void draw(DrawAttributes coordinates, BufferedImage image) {
+            (coordinates, image) -> {
                     int color = coordinates.getColor();
                     for (int squareX = 0; squareX < ImageDraw.squareSize; squareX++) {
                         for (int squareY = 0; squareY < squareX; squareY++) {
                             image.setRGB(coordinates.getX() * ImageDraw.squareSize + squareX, coordinates.getY() * ImageDraw.squareSize + squareY, color);
                         }
                     }
-                }
             }
     );
 
